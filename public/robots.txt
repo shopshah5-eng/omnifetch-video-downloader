@@ -1,0 +1,32 @@
+# Robots.txt for OmniFetch / SnapYT Video Downloader
+# Optimized for Google, Bing, and AI Search Engines (ChatGPT, Perplexity, Claude, Gemini)
+
+User-agent: *
+Allow: /
+Disallow: /api/download
+Disallow: /temp_downloads/
+
+# Explicitly allow AI Search Crawlers for conversational search indexing
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# XML Sitemap location
+Sitemap: https://www.snapyt.app/sitemap.xml
