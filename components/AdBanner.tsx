@@ -28,30 +28,15 @@ export default function AdBanner({
     return null;
   }
 
-  // 1. If custom HTML/Ad Network Script is supplied
-  if (slotConfig.type === 'custom' && slotConfig.customHtml) {
-    return (
-      <div className={`flex flex-col items-center justify-center my-6 ${className}`}>
-        <span className="text-[10px] uppercase font-bold tracking-widest text-[#A1A1AA] dark:text-[#52525B] mb-1">
-          Advertisement
-        </span>
-        <div
-          dangerouslySetInnerHTML={{ __html: slotConfig.customHtml }}
-          className="overflow-hidden flex items-center justify-center"
-        />
-      </div>
-    );
-  }
-
-  // 2. Standard Responsive 728x90 (Desktop) / 300x250 (Mobile) Slot
+  // Responsive Affiliate / Sponsored Partner Banner Slot
   return (
     <div className={`w-full flex flex-col items-center justify-center my-6 sm:my-8 px-4 ${className}`}>
-      {/* Subtle Compliance Label */}
-      <div className="flex items-center gap-1.5 mb-1.5 text-[10px] font-bold uppercase tracking-widest text-[#71717A] dark:text-[#52525B]">
-        <span>Sponsored</span>
+      {/* Clear Compliance & Affiliate Disclosure */}
+      <div className="flex items-center gap-1.5 mb-1.5 text-[10px] font-bold uppercase tracking-wider text-[#71717A] dark:text-[#52525B]">
+        <span>Sponsored Partner</span>
         <span>·</span>
-        <span className="font-normal lowercase text-[9px] opacity-75">
-          {format === 'responsive-leaderboard' ? '728×90 / 300×250' : '300×250'}
+        <span className="font-normal normal-case text-[10px] opacity-80">
+          Affiliate Link (May earn commission)
         </span>
       </div>
 

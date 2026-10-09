@@ -60,11 +60,14 @@ export default function FaqSection() {
       <div className="divide-y divide-[#E4E4E7] dark:divide-[#27272A] border-t border-b border-[#E4E4E7] dark:border-[#27272A]">
         {FAQS.map((item, idx) => {
           const isOpen = openIndex === idx;
+          const answerId = `faq-answer-${idx}`;
           return (
             <div key={idx} className="py-5">
               <button
                 type="button"
                 onClick={() => toggle(idx)}
+                aria-expanded={isOpen}
+                aria-controls={answerId}
                 className="w-full flex items-center justify-between text-left gap-4 group"
               >
                 <span className="font-bold text-sm sm:text-base text-[#09090B] dark:text-white group-hover:opacity-75 transition-opacity">
@@ -76,7 +79,11 @@ export default function FaqSection() {
               </button>
 
               {isOpen && (
-                <div className="mt-3 text-xs sm:text-sm text-[#71717A] dark:text-[#A1A1AA] leading-relaxed pr-6">
+                <div
+                  id={answerId}
+                  role="region"
+                  className="mt-3 text-xs sm:text-sm text-[#71717A] dark:text-[#A1A1AA] leading-relaxed pr-6"
+                >
                   {item.a}
                 </div>
               )}

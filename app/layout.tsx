@@ -22,8 +22,8 @@ export const metadata: Metadata = {
     title: 'YouTube Video Downloader — SnapYT',
     description:
       'Save YouTube videos fast with SnapYT: paste a link to get MP4 or audio. HD/4K when available. Private, no login; works on mobile & desktop.',
-    url: 'https://www.snapyt.app/',
-    siteName: 'SnapYT.App',
+    url: 'https://omnifetch-video-downloader.vercel.app/',
+    siteName: 'OmniFetch',
     type: 'website',
   },
   twitter: {

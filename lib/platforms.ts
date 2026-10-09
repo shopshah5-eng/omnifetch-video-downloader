@@ -31,7 +31,7 @@ export const PLATFORMS: PlatformInfo[] = [
     description: 'Download videos, reels, shorts, and music from YouTube, TikTok, Instagram, and Facebook in seconds. Free, simple, and high quality.',
     seoKeywords: 'video downloader, free video download, youtube video downloader, download tiktok no watermark, instagram reels download, mp3 download',
     supportedFormats: ['1080p Full HD', '4K Ultra HD', 'MP3 Audio', '720p HD'],
-    features: ['No watermark on TikTok', 'Fast downloads', 'Works on phone & PC', '100% free with no sign-up'],
+    features: ['No watermark on TikTok', 'Fast downloads', 'Works on phone & PC', 'Free with no sign-up'],
     howToSteps: [
       { title: 'Copy link', desc: 'Copy the link of the video you want to save.' },
       { title: 'Paste here', desc: 'Paste the link into the box above.' },

@@ -103,7 +103,7 @@ export default function HeroInput({
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           <span className="font-semibold text-[#09090B] dark:text-white">{eyebrow}</span>
           <span className="text-[#A1A1AA] dark:text-[#52525B]">·</span>
-          <span>100% Free · No Sign-up</span>
+          <span>Free to Use · No Account Required</span>
         </div>
 
         {/* Clean Hero Title */}
@@ -122,19 +122,24 @@ export default function HeroInput({
             onSubmit={handleSubmit}
             className="relative flex flex-col sm:flex-row items-stretch gap-2.5 sm:gap-0 p-2 sm:p-2.5 rounded-2xl bg-white dark:bg-[#0C0C0E] border border-[#E4E4E7] dark:border-[#27272A] shadow-sm hover:border-[#D4D4D8] dark:hover:border-[#3F3F46] focus-within:border-black dark:focus-within:border-white focus-within:shadow-xl transition-all duration-200"
           >
-            {/* Input field */}
+            {/* Accessible Label and Input field */}
+            <label htmlFor="video-url-input" className="sr-only">
+              Enter video or music URL to download
+            </label>
             <div className="relative flex-1 flex items-center min-w-0">
               <input
                 ref={inputRef}
-                type="text"
+                id="video-url-input"
+                type="url"
                 value={url}
                 onChange={(e) => {
                   setUrl(e.target.value);
                   if (error) setError(null);
                 }}
                 placeholder={placeholder}
-                className="w-full pl-4 sm:pl-5 pr-20 py-3.5 sm:py-4 bg-transparent text-[#09090B] dark:text-white placeholder-[#A1A1AA] dark:placeholder-[#52525B] text-base sm:text-lg outline-none font-medium"
+                className="w-full pl-4 sm:pl-5 pr-20 py-3.5 sm:py-4 bg-transparent text-[#09090B] dark:text-white placeholder-[#595962] dark:placeholder-[#A6A6B0] text-base sm:text-lg outline-none font-medium"
                 disabled={isLoading}
+                required
               />
 
               <div className="absolute right-3 flex items-center gap-1.5">
@@ -142,7 +147,8 @@ export default function HeroInput({
                   <button
                     type="button"
                     onClick={handleClear}
-                    title="Clear"
+                    title="Clear input"
+                    aria-label="Clear input"
                     className="p-1.5 rounded-lg text-[#71717A] hover:text-[#09090B] dark:hover:text-white hover:bg-[#F4F4F5] dark:hover:bg-[#18181B] transition-colors"
                   >
                     <X className="w-4 h-4" />
@@ -151,6 +157,7 @@ export default function HeroInput({
                   <button
                     type="button"
                     onClick={handlePaste}
+                    aria-label="Paste from clipboard"
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F4F4F5] dark:bg-[#18181B] hover:bg-[#E4E4E7] dark:hover:bg-[#27272A] text-[#52525B] dark:text-[#A1A1AA] text-xs sm:text-sm font-semibold transition-colors"
                   >
                     <Clipboard className="w-3.5 h-3.5" />
@@ -180,56 +187,45 @@ export default function HeroInput({
             </button>
           </form>
 
-          {/* Detected platform notification */}
-          {url && detectedPlatform.id !== 'all' && (
-            <div className="mt-3.5 flex items-center justify-center gap-2 text-xs sm:text-sm text-[#52525B] dark:text-[#A1A1AA]">
-              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-              <span>Found:</span>
-              <span className="font-bold text-[#09090B] dark:text-white">
-                {detectedPlatform.name} video
-              </span>
-            </div>
-          )}
+          {/* Live region for accessibility */}
+          <div role="status" aria-live="polite">
+            {/* Detected platform notification */}
+            {url && detectedPlatform.id !== 'all' && (
+              <div className="mt-3.5 flex items-center justify-center gap-2 text-xs sm:text-sm text-[#52525B] dark:text-[#A1A1AA]">
+                <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span>Recognized source:</span>
+                <span className="font-bold text-[#09090B] dark:text-white">
+                  {detectedPlatform.name}
+                </span>
+              </div>
+            )}
 
-          {/* Error Message */}
-          {error && (
-            <div className="mt-4 p-3.5 rounded-xl bg-[#FEF2F2] dark:bg-[#180C0E] border border-[#FCA5A5] dark:border-[#7F1D1D] flex items-center gap-2.5 text-left text-xs sm:text-sm text-[#B91C1C] dark:text-[#F87171]">
-              <AlertCircle className="w-4 h-4 flex-shrink-0" />
-              <span>{error}</span>
-            </div>
-          )}
+            {/* Error Message */}
+            {error && (
+              <div className="mt-4 p-3.5 rounded-xl bg-[#FEF2F2] dark:bg-[#180C0E] border border-[#FCA5A5] dark:border-[#7F1D1D] flex items-center gap-2.5 text-left text-xs sm:text-sm text-[#B91C1C] dark:text-[#F87171]">
+                <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
+          </div>
 
-          {/* Try sample buttons */}
+          {/* Try sample button */}
           <div className="mt-5 flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm text-[#71717A]">
-            <span>Try sample:</span>
+            <span>Try demo link:</span>
             <button
               type="button"
-              onClick={() => loadSample('https://www.youtube.com/watch?v=dQw4w9WgXcQ')}
-              className="px-2.5 py-1 rounded-lg border border-[#E4E4E7] dark:border-[#27272A] hover:border-[#A1A1AA] dark:hover:border-[#52525B] transition-colors"
+              onClick={() => loadSample('https://www.youtube.com/watch?v=jNQXAC9IVRw')}
+              className="px-2.5 py-1 rounded-lg border border-[#E4E4E7] dark:border-[#27272A] hover:border-[#A1A1AA] dark:hover:border-[#52525B] text-[#52525B] dark:text-[#A1A1AA] hover:text-[#09090B] dark:hover:text-white transition-colors"
             >
-              YouTube HD
-            </button>
-            <button
-              type="button"
-              onClick={() => loadSample('https://www.tiktok.com/@tiktok/video/7000000000000000000')}
-              className="px-2.5 py-1 rounded-lg border border-[#E4E4E7] dark:border-[#27272A] hover:border-[#A1A1AA] dark:hover:border-[#52525B] transition-colors"
-            >
-              TikTok (No Watermark)
-            </button>
-            <button
-              type="button"
-              onClick={() => loadSample('https://www.instagram.com/reel/C-sample/')}
-              className="px-2.5 py-1 rounded-lg border border-[#E4E4E7] dark:border-[#27272A] hover:border-[#A1A1AA] dark:hover:border-[#52525B] transition-colors"
-            >
-              Instagram Reel
+              YouTube Public Clip (Me at the zoo)
             </button>
           </div>
 
           {/* Simple Trust Points */}
           <div className="mt-10 pt-6 border-t border-[#E4E4E7] dark:border-[#1F1F23] grid grid-cols-3 gap-4 text-xs sm:text-sm text-[#71717A] dark:text-[#A1A1AA]">
-            <div className="flex items-center justify-center gap-1.5">⚡ Fast Download</div>
-            <div className="flex items-center justify-center gap-1.5">✨ No Watermark</div>
-            <div className="flex items-center justify-center gap-1.5">🔒 100% Free &amp; Private</div>
+            <div className="flex items-center justify-center gap-1.5">⚡ Fast Processing</div>
+            <div className="flex items-center justify-center gap-1.5">✨ Clean Formats</div>
+            <div className="flex items-center justify-center gap-1.5">🔒 Private &amp; Direct</div>
           </div>
         </div>
       </div>

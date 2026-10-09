@@ -1,126 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <!-- Home / All Sites Downloader -->
   <url>
-    <loc>https://www.snapyt.app/</loc>
-    <lastmod>2026-10-05</lastmod>
+    <loc>https://omnifetch-video-downloader.vercel.app/</loc>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.snapyt.app/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.snapyt.app/es/"/>
-    <xhtml:link rel="alternate" hreflang="hi" href="https://www.snapyt.app/hi/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.snapyt.app/pt/"/>
-    <xhtml:link rel="alternate" hreflang="id" href="https://www.snapyt.app/id/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.snapyt.app/fr/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://www.snapyt.app/de/"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.snapyt.app/ja/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.snapyt.app/ar/"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.snapyt.app/ru/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.snapyt.app/"/>
   </url>
 
   <!-- YouTube Video & Shorts Downloader -->
   <url>
-    <loc>https://www.snapyt.app/youtube-downloader</loc>
-    <lastmod>2026-10-05</lastmod>
+    <loc>https://omnifetch-video-downloader.vercel.app/youtube-downloader</loc>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- TikTok Downloader No Watermark -->
   <url>
-    <loc>https://www.snapyt.app/tiktok-downloader</loc>
-    <lastmod>2026-10-05</lastmod>
+    <loc>https://omnifetch-video-downloader.vercel.app/tiktok-downloader</loc>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Instagram Reels & Video Downloader -->
   <url>
-    <loc>https://www.snapyt.app/instagram-downloader</loc>
-    <lastmod>2026-10-05</lastmod>
+    <loc>https://omnifetch-video-downloader.vercel.app/instagram-downloader</loc>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- Facebook Video Downloader -->
   <url>
-    <loc>https://www.snapyt.app/facebook-downloader</loc>
-    <lastmod>2026-10-05</lastmod>
+    <loc>https://omnifetch-video-downloader.vercel.app/facebook-downloader</loc>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Twitter / X Video Downloader -->
   <url>
-    <loc>https://www.snapyt.app/twitter-downloader</loc>
-    <lastmod>2026-10-05</lastmod>
+    <loc>https://omnifetch-video-downloader.vercel.app/twitter-downloader</loc>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Reddit Video Downloader with Sound -->
   <url>
-    <loc>https://www.snapyt.app/reddit-downloader</loc>
-    <lastmod>2026-10-05</lastmod>
+    <loc>https://omnifetch-video-downloader.vercel.app/reddit-downloader</loc>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Pinterest Video & GIF Downloader -->
   <url>
-    <loc>https://www.snapyt.app/pinterest-downloader</loc>
-    <lastmod>2026-10-05</lastmod>
+    <loc>https://omnifetch-video-downloader.vercel.app/pinterest-downloader</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Threads Video Downloader -->
+  <url>
+    <loc>https://omnifetch-video-downloader.vercel.app/threads-downloader</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Dailymotion Video Downloader -->
+  <url>
+    <loc>https://omnifetch-video-downloader.vercel.app/dailymotion-downloader</loc>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- YouTube Shorts Downloader -->
   <url>
-    <loc>https://www.snapyt.app/youtube-shorts-downloader</loc>
-    <lastmod>2026-10-05</lastmod>
+    <loc>https://omnifetch-video-downloader.vercel.app/youtube-shorts-downloader</loc>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- YouTube to MP3 Converter -->
   <url>
-    <loc>https://www.snapyt.app/youtube-to-mp3</loc>
-    <lastmod>2026-10-05</lastmod>
+    <loc>https://omnifetch-video-downloader.vercel.app/youtube-to-mp3</loc>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- About Us -->
   <url>
-    <loc>https://www.snapyt.app/about</loc>
-    <lastmod>2026-10-05</lastmod>
+    <loc>https://omnifetch-video-downloader.vercel.app/about</loc>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <!-- Contact & DMCA -->
   <url>
-    <loc>https://www.snapyt.app/contact</loc>
-    <lastmod>2026-10-05</lastmod>
+    <loc>https://omnifetch-video-downloader.vercel.app/contact</loc>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <!-- Privacy Policy -->
   <url>
-    <loc>https://www.snapyt.app/privacy</loc>
-    <lastmod>2026-10-05</lastmod>
+    <loc>https://omnifetch-video-downloader.vercel.app/privacy</loc>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
 
   <!-- Terms of Service -->
   <url>
-    <loc>https://www.snapyt.app/terms</loc>
-    <lastmod>2026-10-05</lastmod>
+    <loc>https://omnifetch-video-downloader.vercel.app/terms</loc>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>

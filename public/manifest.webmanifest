@@ -1,0 +1,16 @@
+{
+  "name": "OmniFetch Video Downloader",
+  "short_name": "OmniFetch",
+  "description": "Fast and free video downloader for YouTube, TikTok, Instagram, and more.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

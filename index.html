@@ -20,10 +20,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://www.snapyt.app/" />
+    <link rel="canonical" href="https://omnifetch-video-downloader.vercel.app/" />
 
-    <!-- Minimalist Favicon -->
+    <!-- Favicon and App Manifest -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23000000'/><text x='50' y='65' font-family='sans-serif' font-size='48' font-weight='bold' fill='%23FFFFFF' text-anchor='middle'>OF</text></svg>" />
+    <link rel="manifest" href="/manifest.webmanifest" />
 
     <!-- Open Graph (Facebook / LinkedIn) -->
     <meta property="og:type" content="website" />
@@ -32,7 +34,8 @@
       property="og:description"
       content="Download videos and music from YouTube, TikTok without watermark, Instagram, Facebook, and Twitter in HD or MP3."
     />
-    <meta property="og:url" content="https://www.snapyt.app/" />
+    <meta property="og:url" content="https://omnifetch-video-downloader.vercel.app/" />
+    <meta property="og:image" content="https://omnifetch-video-downloader.vercel.app/og-image.png" />
     <meta property="og:site_name" content="OmniFetch" />
     <meta property="og:locale" content="en_US" />
 
@@ -43,23 +46,7 @@
       name="twitter:description"
       content="Save videos from YouTube, TikTok (no watermark), Instagram, and Twitter in original HD quality or MP3."
     />
-
-    <!-- Multilingual Alternate hreflang Tags (Global Ranking) -->
-    <link rel="alternate" hreflang="en" href="https://www.snapyt.app/" />
-    <link rel="alternate" hreflang="es" href="https://www.snapyt.app/es/" />
-    <link rel="alternate" hreflang="hi" href="https://www.snapyt.app/hi/" />
-    <link rel="alternate" hreflang="pt" href="https://www.snapyt.app/pt/" />
-    <link rel="alternate" hreflang="id" href="https://www.snapyt.app/id/" />
-    <link rel="alternate" hreflang="fr" href="https://www.snapyt.app/fr/" />
-    <link rel="alternate" hreflang="de" href="https://www.snapyt.app/de/" />
-    <link rel="alternate" hreflang="ja" href="https://www.snapyt.app/ja/" />
-    <link rel="alternate" hreflang="ru" href="https://www.snapyt.app/ru/" />
-    <link rel="alternate" hreflang="ar" href="https://www.snapyt.app/ar/" />
-    <link rel="alternate" hreflang="ko" href="https://www.snapyt.app/ko/" />
-    <link rel="alternate" hreflang="vi" href="https://www.snapyt.app/vi/" />
-    <link rel="alternate" hreflang="it" href="https://www.snapyt.app/it/" />
-    <link rel="alternate" hreflang="tr" href="https://www.snapyt.app/tr/" />
-    <link rel="alternate" hreflang="x-default" href="https://www.snapyt.app/" />
+    <meta name="twitter:image" content="https://omnifetch-video-downloader.vercel.app/og-image.png" />
 
     <!-- Schema.org JSON-LD Structured Data (Google Rich Snippets) -->
     <script type="application/ld+json">
@@ -68,19 +55,12 @@
       "@graph": [
         {
           "@type": "SoftwareApplication",
-          "@id": "https://www.snapyt.app/#software",
+          "@id": "https://omnifetch-video-downloader.vercel.app/#software",
           "name": "OmniFetch",
-          "url": "https://www.snapyt.app/",
+          "url": "https://omnifetch-video-downloader.vercel.app/",
           "description": "Fast and free video downloader. Download videos from YouTube, TikTok without watermark, Instagram Reels, Facebook, and Twitter in HD, 4K, or MP3.",
           "applicationCategory": "MultimediaApplication",
           "operatingSystem": "All (Windows, macOS, iOS, Android)",
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.96",
-            "ratingCount": "218450",
-            "bestRating": "5",
-            "worstRating": "1"
-          },
           "offers": {
             "@type": "Offer",
             "price": "0",
@@ -89,16 +69,16 @@
           "featureList": [
             "Fast downloads with no waiting",
             "TikTok downloader without watermark",
-            "YouTube 4K and Full HD video downloader",
+            "YouTube Full HD video downloader",
             "Instagram Reels and Stories downloader",
             "Convert and save YouTube to MP3 audio",
             "Reddit videos with sound",
-            "100% free with no sign-up"
+            "Free to use with no sign-up"
           ]
         },
         {
           "@type": "HowTo",
-          "@id": "https://www.snapyt.app/#howto",
+          "@id": "https://omnifetch-video-downloader.vercel.app/#howto",
           "name": "How to Download Any Video with OmniFetch",
           "description": "3 simple steps to save videos from YouTube, TikTok, Instagram, or Facebook.",
           "step": [
@@ -124,30 +104,62 @@
         },
         {
           "@type": "FAQPage",
-          "@id": "https://www.snapyt.app/#faq",
+          "@id": "https://omnifetch-video-downloader.vercel.app/#faq",
           "mainEntity": [
             {
               "@type": "Question",
-              "name": "Is this video downloader free?",
+              "name": "Is this video downloader completely free?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Yes, it is 100% free with no hidden fees or account needed."
+                "text": "Yes, it is free to use. You don’t need to create an account, enter a credit card, or pay any fees."
               }
             },
             {
               "@type": "Question",
-              "name": "Does it remove TikTok watermarks?",
+              "name": "Does it remove the watermark from TikTok videos?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Yes, downloaded TikTok videos are clean without any watermark or logo."
+                "text": "Yes. When you download a TikTok video, it downloads without the bouncing TikTok logo or watermark, giving you a clean, high-quality video."
               }
             },
             {
               "@type": "Question",
-              "name": "Can I save videos to my iPhone?",
+              "name": "Can I download just the music or audio as MP3?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Yes, open Safari on your iPhone, tap Download, and save directly to your Photos app."
+                "text": "Yes. Simply paste the link, choose the \"Audio (MP3)\" tab, and click Download. You will get an MP3 file of the sound or music."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I save videos on my iPhone or iPad?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Open this website in Safari on your iPhone, paste the video link, and tap Download. Safari will ask you to confirm and save the file to your Downloads in the Files app. From the Files app, you can share and save the video directly to your Photos library."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does it work with Reddit videos with sound?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Many downloaders only save Reddit video without sound. Our tool automatically includes the audio so your downloaded video plays with full sound."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I download Instagram Reels and Stories?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. You can download public Instagram Reels, videos, and photos in high resolution without needing to log in."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is my download history private?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. We do not save your download history, keep persistent copies of your videos, or track what you download."
               }
             }
           ]

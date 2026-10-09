@@ -1,5 +1,5 @@
-# Robots.txt for OmniFetch / SnapYT Video Downloader
-# Optimized for Google, Bing, and AI Search Engines (ChatGPT, Perplexity, Claude, Gemini)
+# Robots.txt for OmniFetch Video Downloader
+# Optimized for Google, Bing, and major Search Crawlers
 
 User-agent: *
 Allow: /
@@ -29,4 +29,4 @@ User-agent: Bingbot
 Allow: /
 
 # XML Sitemap location
-Sitemap: https://www.snapyt.app/sitemap.xml
+Sitemap: https://omnifetch-video-downloader.vercel.app/sitemap.xml

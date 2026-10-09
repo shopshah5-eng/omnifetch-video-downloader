@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "www.snapyt.app",
+        hostname: "omnifetch-video-downloader.vercel.app",
       },
       {
         protocol: "https",

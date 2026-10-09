@@ -126,8 +126,20 @@ const server = http.createServer(async (req, res) => {
     return res.end();
   }
 
+  // Health check for Render / Container orchestration
+  if (pathname === '/healthz' || pathname === '/api/health') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    return res.end(JSON.stringify({ status: 'ok', service: 'omnifetch-backend' }));
+  }
+
+  // Handle HEAD probe for download endpoint
+  if (req.method === 'HEAD' && pathname === '/api/download') {
+    res.writeHead(200);
+    return res.end();
+  }
+
   // 1. API: Extract Video Metadata
-  if (pathname === '/api/extract') {
+  if (pathname === '/api/extract' || pathname === '/api/process-video') {
     let targetUrl = reqUrl.searchParams.get('url');
     if (!targetUrl && req.method === 'POST') {
       try {
@@ -231,6 +243,6 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, () => {
-  console.log(`[OmniFetch] Production Server running on port ${PORT}`);
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`[OmniFetch] Production Server running on http://0.0.0.0:${PORT}`);
 });

@@ -1,7 +1,5 @@
-'use client';
-
 import React, { useState } from 'react';
-import { Download, Copy, Check, Video, RefreshCw, Music, CheckCircle2 } from 'lucide-react';
+import { Download, Copy, Check, Video, RefreshCw, Music, CheckCircle2, AlertCircle } from 'lucide-react';
 import { VideoMetadata, VideoFormat } from '@/lib/types';
 import { detectPlatform } from '@/lib/platforms';
 import AdBanner from './AdBanner';
@@ -15,8 +13,8 @@ export default function VideoPreviewCard({ video, onReset }: VideoPreviewCardPro
   const [selectedFormatIndex, setSelectedFormatIndex] = useState<number>(0);
   const [activeTab, setActiveTab] = useState<'video' | 'audio'>('video');
   const [isDownloading, setIsDownloading] = useState(false);
-  const [downloadProgress, setDownloadProgress] = useState(0);
   const [downloadStarted, setDownloadStarted] = useState(false);
+  const [downloadError, setDownloadError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
 
   const platformInfo = detectPlatform(video.url);
@@ -30,46 +28,42 @@ export default function VideoPreviewCard({ video, onReset }: VideoPreviewCardPro
 
   const selectedFormat: VideoFormat | undefined = displayedFormats[selectedFormatIndex] || displayedFormats[0] || video.formats[0];
 
-  const triggerDownload = (format?: VideoFormat) => {
+  const triggerDownload = async (format?: VideoFormat) => {
     const targetFormat = format || selectedFormat;
     if (!targetFormat) return;
 
     setIsDownloading(true);
     setDownloadStarted(false);
-    setDownloadProgress(20);
+    setDownloadError(null);
 
-    const targetUrl = `/api/download?url=${encodeURIComponent(video.url)}&fmt=${targetFormat.id || 'best'}&title=${encodeURIComponent(video.title)}&ext=${targetFormat.ext || 'mp4'}`;
+    const targetUrl = `/api/download?url=${encodeURIComponent(video.url)}&fmt=${encodeURIComponent(targetFormat.id || 'best')}&title=${encodeURIComponent(video.title)}&ext=${encodeURIComponent(targetFormat.ext || 'mp4')}`;
 
-    // Invisible native download trigger via <a> tag
-    const link = document.createElement('a');
-    link.href = targetUrl;
-    link.setAttribute('download', `${video.title}.${targetFormat.ext || 'mp4'}`);
-    document.body.appendChild(link);
-    link.click();
-    setTimeout(() => {
-      if (document.body.contains(link)) document.body.removeChild(link);
-    }, 2000);
+    try {
+      // Test server response first to avoid silent 404 failure
+      const checkRes = await fetch(targetUrl, { method: 'HEAD' }).catch(() => null);
 
-    // Realistic progress animation
-    const timer = setInterval(() => {
-      setDownloadProgress((prev) => {
-        if (prev >= 90) {
-          clearInterval(timer);
-          return 90;
-        }
-        return prev + 15;
-      });
-    }, 350);
+      if (!checkRes || !checkRes.ok) {
+        throw new Error('Download backend server is currently offline (HTTP ' + (checkRes ? checkRes.status : 'Offline') + '). Please ensure the backend service or container is running.');
+      }
 
-    setTimeout(() => {
-      clearInterval(timer);
-      setDownloadProgress(100);
+      // If server responded OK, trigger native browser file download
+      const link = document.createElement('a');
+      link.href = targetUrl;
+      link.setAttribute('download', `${video.title}.${targetFormat.ext || 'mp4'}`);
+      document.body.appendChild(link);
+      link.click();
+      setTimeout(() => {
+        if (document.body.contains(link)) document.body.removeChild(link);
+      }, 1000);
+
       setDownloadStarted(true);
       setTimeout(() => {
         setIsDownloading(false);
-        setDownloadProgress(0);
-      }, 5000);
-    }, 3000);
+      }, 4000);
+    } catch (err: any) {
+      setDownloadError(err.message || 'Download service unavailable. Please try again later.');
+      setIsDownloading(false);
+    }
   };
 
   const handleCopyLink = () => {
@@ -239,8 +233,8 @@ export default function VideoPreviewCard({ video, onReset }: VideoPreviewCardPro
                 <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
                 <span>
                   {downloadStarted
-                    ? 'Download Started! Check Browser'
-                    : `Preparing ${selectedFormat?.quality}... (${downloadProgress}%)`}
+                    ? 'Download Initiated'
+                    : `Contacting Server for ${selectedFormat?.quality}...`}
                 </span>
               </>
             ) : (
@@ -251,19 +245,22 @@ export default function VideoPreviewCard({ video, onReset }: VideoPreviewCardPro
             )}
           </button>
 
-          {/* Download feedback note */}
-          {isDownloading && (
-            <div className="mt-3 p-2.5 rounded-lg bg-[#F4F4F5] dark:bg-[#121215] border border-[#E4E4E7] dark:border-[#27272A] text-center text-xs text-[#71717A] dark:text-[#A1A1AA]">
-              {downloadStarted ? (
-                <span className="flex items-center justify-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-medium">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>Download has started! Look for the file in your downloads folder.</span>
-                </span>
-              ) : (
-                <span>Packaging your video file... Download will start in a few seconds.</span>
-              )}
-            </div>
-          )}
+          {/* Download status / error feedback */}
+          <div role="status" aria-live="polite" className="mt-3">
+            {downloadError && (
+              <div className="p-3 rounded-xl bg-[#FEF2F2] dark:bg-[#180C0E] border border-[#FCA5A5] dark:border-[#7F1D1D] flex items-center gap-2.5 text-left text-xs text-[#B91C1C] dark:text-[#F87171]">
+                <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                <span>{downloadError}</span>
+              </div>
+            )}
+
+            {downloadStarted && !downloadError && (
+              <div className="p-2.5 rounded-lg bg-[#F0FDF4] dark:bg-[#0C1A10] border border-[#86EFAC] dark:border-[#1E3A24] text-center text-xs text-emerald-700 dark:text-emerald-400 font-medium flex items-center justify-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                <span>Download file stream requested. Look for the file in your downloads.</span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 

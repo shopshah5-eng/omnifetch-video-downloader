@@ -12,84 +12,98 @@ import AdBanner from '../components/AdBanner';
 import { VideoMetadata } from '../lib/types';
 import { PLATFORMS } from '../lib/platforms';
 
+const CANONICAL_BASE = 'https://omnifetch-video-downloader.vercel.app';
+
 const SEO_DATA: Record<string, { title: string; description: string; canonical: string; keywords?: string }> = {
   home: {
     title: 'Free Video Downloader — Save YouTube, TikTok, Instagram & More',
-    description: 'Download videos, reels, and music from YouTube, TikTok without watermark, Instagram, and Facebook in HD, 4K, or MP3. Fast, free, and no sign-up.',
-    canonical: 'https://www.snapyt.app/',
+    description: 'Download videos, reels, and music from YouTube, TikTok without watermark, Instagram, and Facebook in HD, 1080p, or MP3. Fast, free, and no sign-up.',
+    canonical: `${CANONICAL_BASE}/`,
     keywords: 'youtube video downloader, tiktok downloader no watermark, instagram reels downloader, youtube to mp3, facebook video downloader, reddit video downloader with sound',
   },
   youtube: {
     title: 'YouTube Video & Shorts Downloader (HD & MP3) | OmniFetch',
-    description: 'Download YouTube videos, Shorts, and music in HD, 1080p, 4K, or MP3 audio. Free, fast, and easy to use.',
-    canonical: 'https://www.snapyt.app/youtube-downloader',
+    description: 'Download YouTube videos, Shorts, and music in HD, 1080p, or MP3 audio. Free, fast, and easy to use.',
+    canonical: `${CANONICAL_BASE}/youtube-downloader`,
     keywords: 'youtube video downloader, download youtube shorts, youtube to mp3, save youtube video, youtube 1080p download',
   },
   instagram: {
     title: 'Instagram Reels & Video Downloader | OmniFetch',
     description: 'Save Instagram Reels, videos, and photos in original high quality. Free, fast, and no login required.',
-    canonical: 'https://www.snapyt.app/instagram-downloader',
+    canonical: `${CANONICAL_BASE}/instagram-downloader`,
     keywords: 'instagram downloader, download instagram reels, save instagram video, instagram story saver',
   },
   tiktok: {
     title: 'TikTok Downloader Without Watermark (HD & MP3) | OmniFetch',
     description: 'Download TikTok videos without any watermark in HD. Save original TikTok sound and music as MP3 for free.',
-    canonical: 'https://www.snapyt.app/tiktok-downloader',
+    canonical: `${CANONICAL_BASE}/tiktok-downloader`,
     keywords: 'tiktok downloader, tiktok without watermark, download tiktok to mp3, tiktok sound extractor, tiktok video download',
   },
   facebook: {
     title: 'Facebook Video & Reels Downloader | OmniFetch',
     description: 'Download public Facebook videos and Reels in Full HD 1080p or 720p. Free and simple.',
-    canonical: 'https://www.snapyt.app/facebook-downloader',
+    canonical: `${CANONICAL_BASE}/facebook-downloader`,
     keywords: 'facebook video downloader, fb reels download, save facebook video, facebook watch mp4',
   },
   twitter: {
     title: 'Twitter / X Video & GIF Downloader | OmniFetch',
     description: 'Download videos and GIFs from Twitter (X) tweets in MP4 format. Free, fast, and crystal clear.',
-    canonical: 'https://www.snapyt.app/twitter-downloader',
+    canonical: `${CANONICAL_BASE}/twitter-downloader`,
     keywords: 'twitter video downloader, x video downloader, download twitter gif, tweet to mp4',
   },
   reddit: {
     title: 'Reddit Video Downloader with Sound | OmniFetch',
     description: 'Download Reddit videos with clear audio included. No more muted videos.',
-    canonical: 'https://www.snapyt.app/reddit-downloader',
+    canonical: `${CANONICAL_BASE}/reddit-downloader`,
     keywords: 'reddit video downloader, reddit video with sound, download v.redd.it, reddit to mp4',
   },
   pinterest: {
     title: 'Pinterest Video & GIF Downloader | OmniFetch',
     description: 'Download Pinterest videos, idea pins, and animated GIFs in original high quality.',
-    canonical: 'https://www.snapyt.app/pinterest-downloader',
+    canonical: `${CANONICAL_BASE}/pinterest-downloader`,
     keywords: 'pinterest downloader, pinterest video downloader, download pin video, pinterest gif download',
+  },
+  threads: {
+    title: 'Threads Video & Photo Downloader | OmniFetch',
+    description: 'Download videos and photos from Threads in high quality. Simple, free, and private.',
+    canonical: `${CANONICAL_BASE}/threads-downloader`,
+    keywords: 'threads video downloader, download threads video, save threads post',
+  },
+  dailymotion: {
+    title: 'Dailymotion Video Downloader (1080p HD) | OmniFetch',
+    description: 'Save Dailymotion videos in 1080p Full HD or MP3 audio fast and free.',
+    canonical: `${CANONICAL_BASE}/dailymotion-downloader`,
+    keywords: 'dailymotion downloader, download dailymotion video, dailymotion to mp4',
   },
   shorts: {
     title: 'YouTube Shorts Downloader | OmniFetch',
     description: 'Save vertical YouTube Shorts in high quality MP4 video and MP3 audio for free.',
-    canonical: 'https://www.snapyt.app/youtube-shorts-downloader',
+    canonical: `${CANONICAL_BASE}/youtube-shorts-downloader`,
   },
   mp3: {
     title: 'YouTube to MP3 Audio Converter & Music Downloader | OmniFetch',
-    description: 'Convert and download clear MP3 audio from any YouTube video in seconds. Free and unlimited.',
-    canonical: 'https://www.snapyt.app/youtube-mp3-downloader',
+    description: 'Convert and download clear MP3 audio from any YouTube video in seconds. Free and simple.',
+    canonical: `${CANONICAL_BASE}/youtube-to-mp3`,
   },
   privacy: {
     title: 'Privacy Policy | OmniFetch',
     description: 'OmniFetch does not store your downloads, search history, or personal information.',
-    canonical: 'https://www.snapyt.app/privacy',
+    canonical: `${CANONICAL_BASE}/privacy`,
   },
   terms: {
     title: 'Terms of Service | OmniFetch',
     description: 'Terms of use and guidelines for downloading public videos with OmniFetch.',
-    canonical: 'https://www.snapyt.app/terms',
+    canonical: `${CANONICAL_BASE}/terms`,
   },
   contact: {
     title: 'Contact Us & DMCA Notice | OmniFetch',
     description: 'Get in touch with the OmniFetch team or submit a DMCA copyright inquiry.',
-    canonical: 'https://www.snapyt.app/contact',
+    canonical: `${CANONICAL_BASE}/contact`,
   },
   about: {
     title: 'About OmniFetch — Fast Video Downloader',
-    description: 'OmniFetch is a free web tool created to help people save videos quickly and easily without annoying ads or wait times.',
-    canonical: 'https://www.snapyt.app/about',
+    description: 'OmniFetch is a free web tool created to help people save videos quickly and easily without annoying pop-ups or wait times.',
+    canonical: `${CANONICAL_BASE}/about`,
   },
 };
 
@@ -128,6 +142,12 @@ export default function App() {
       } else if (path.includes('pinterest') || path.includes('pin')) {
         setCurrentPage('pinterest');
         setSelectedPlatform('pinterest');
+      } else if (path.includes('threads')) {
+        setCurrentPage('threads');
+        setSelectedPlatform('threads');
+      } else if (path.includes('dailymotion') || path.includes('dai.ly')) {
+        setCurrentPage('dailymotion');
+        setSelectedPlatform('dailymotion');
       } else if (path.includes('privacy')) {
         setCurrentPage('privacy');
       } else if (path.includes('terms')) {
@@ -226,16 +246,24 @@ export default function App() {
             </h1>
             <div className="space-y-6 text-xs sm:text-sm text-[#52525B] dark:text-[#A1A1AA] leading-relaxed border-t border-[#E4E4E7] dark:border-[#27272A] pt-6">
               <section>
-                <h2 className="font-bold text-[#09090B] dark:text-white mb-1.5 text-sm">1. We Do Not Store Your Files</h2>
-                <p>OmniFetch does not save or store the videos or audio files you download. When you download a video, it is sent directly to your device and never saved on our servers.</p>
+                <h2 className="font-bold text-[#09090B] dark:text-white mb-1.5 text-sm">1. Transient In-Memory Processing</h2>
+                <p>When you submit a link, OmniFetch processes it transiently in-memory solely to retrieve publicly available metadata and stream parameters. We do not store or host user-downloaded media on our servers.</p>
               </section>
               <section>
-                <h2 className="font-bold text-[#09090B] dark:text-white mb-1.5 text-sm">2. No Account Required</h2>
-                <p>You never need to create an account, provide an email address, or log in to use OmniFetch. We do not track your downloads or your identity.</p>
+                <h2 className="font-bold text-[#09090B] dark:text-white mb-1.5 text-sm">2. No Account or Personal Identity Required</h2>
+                <p>You never need to create an account, provide an email address, or log in to use OmniFetch. We do not collect names, payment details, or personal contact information for downloads.</p>
               </section>
               <section>
-                <h2 className="font-bold text-[#09090B] dark:text-white mb-1.5 text-sm">3. Local Settings</h2>
-                <p>We only use your browser’s local storage to remember simple preferences, like whether you prefer light mode or dark mode.</p>
+                <h2 className="font-bold text-[#09090B] dark:text-white mb-1.5 text-sm">3. Local Storage Preferences</h2>
+                <p>We use standard client-side browser local storage strictly to remember basic UI settings (such as your light or dark mode theme selection). No persistent tracking identifiers are placed in local storage.</p>
+              </section>
+              <section>
+                <h2 className="font-bold text-[#09090B] dark:text-white mb-1.5 text-sm">4. Hosting Infrastructure</h2>
+                <p>OmniFetch is served via secure cloud infrastructure (Vercel). Standard server logs (e.g. IP addresses, request timestamps) are handled transiently by upstream infrastructure strictly for security, DDoS protection, and rate limiting.</p>
+              </section>
+              <section>
+                <h2 className="font-bold text-[#09090B] dark:text-white mb-1.5 text-sm">5. Third-Party Links &amp; Disclosures</h2>
+                <p>Any promotional partner links are marked with &quot;Sponsored&quot; or &quot;Promo&quot; badges. We do not share or sell user search logs to advertisers.</p>
               </section>
             </div>
           </div>
@@ -328,7 +356,7 @@ export default function App() {
         )}
 
         {/* Main Downloader Page */}
-        {['home', 'youtube', 'tiktok', 'instagram', 'facebook', 'twitter', 'reddit', 'pinterest', 'shorts', 'mp3'].includes(currentPage) && (
+        {['home', 'youtube', 'tiktok', 'instagram', 'facebook', 'twitter', 'reddit', 'pinterest', 'threads', 'dailymotion', 'shorts', 'mp3'].includes(currentPage) && (
           <>
             {/* Minimal Platform Selector */}
             <div className="pt-4 px-4">

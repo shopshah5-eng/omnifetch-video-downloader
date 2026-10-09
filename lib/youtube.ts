@@ -219,6 +219,7 @@ export async function getVideoInfo(rawUrl: string): Promise<VideoMetadata> {
     return {
       id: videoId,
       url: cleanUrl,
+      platform: 'youtube',
       title: data.title || data.fulltitle || `YouTube Video (${videoId})`,
       uploader: data.uploader || data.channel || 'YouTube Creator',
       uploader_url: data.uploader_url,
@@ -255,6 +256,7 @@ export async function getVideoInfo(rawUrl: string): Promise<VideoMetadata> {
     return {
       id: videoId,
       url: cleanUrl,
+      platform: 'youtube',
       title,
       uploader: author,
       duration: '3:33',

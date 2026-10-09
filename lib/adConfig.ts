@@ -45,8 +45,8 @@ export const AD_SLOTS: Record<string, AdSlotConfig> = {
   midPage: {
     enabled: true,
     type: 'placeholder',
-    affiliateTitle: '100% Free & Unlimited Cloud Storage',
-    affiliateDesc: 'Store your downloaded 4K videos safely in the cloud with 1024 GB free space.',
+    affiliateTitle: 'Cloud Backup & Video Storage',
+    affiliateDesc: 'Back up your downloaded videos safely in the cloud with 1024 GB free storage.',
     affiliateLink: 'https://www.terabox.com/',
     affiliateCta: 'Claim Free 1TB',
   },
@@ -55,8 +55,8 @@ export const AD_SLOTS: Record<string, AdSlotConfig> = {
   aboveFooter: {
     enabled: true,
     type: 'placeholder',
-    affiliateTitle: 'Fast, Safe & Ad-Free Video Downloads',
-    affiliateDesc: 'Thank you for using OmniFetch. Bookmark this site (Ctrl + D) for instant downloads anytime.',
+    affiliateTitle: 'Fast & Clean Video Downloads',
+    affiliateDesc: 'Thank you for using OmniFetch. Bookmark this page (Ctrl + D) for fast media access anytime.',
     affiliateLink: '#',
     affiliateCta: 'Bookmark Page',
   },
