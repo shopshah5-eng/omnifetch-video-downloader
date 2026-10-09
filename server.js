@@ -93,23 +93,123 @@ async function getVideoInfo(rawUrl) {
     };
   }
 
-  // General fallback using yt-dlp
-  const { stdout } = await execFileAsync('yt-dlp', ['--dump-single-json', '--no-warnings', '--no-check-certificates', cleanUrl], { timeout: 15000 });
-  const raw = JSON.parse(stdout);
-  return {
-    id: raw.id || 'video-' + Date.now(),
-    url: cleanUrl,
-    platform,
-    title: raw.title || 'Downloaded Video',
-    uploader: raw.uploader || 'Creator',
-    duration: raw.duration_string || 'HD',
-    thumbnail: raw.thumbnail || '',
-    thumbnails: [{ url: raw.thumbnail || '' }],
-    formats: [
-      { id: 'best', format_id: 'best', quality: 'Original High Quality', ext: 'mp4', kind: 'video+audio', sizeFormatted: 'HD' },
-      { id: 'mp3', format_id: 'mp3', quality: 'MP3 Audio', ext: 'mp3', kind: 'audio-only', sizeFormatted: 'Audio' },
-    ],
-  };
+  if (platform === 'tiktok') {
+    try {
+      const res = await fetch(`https://www.tiktok.com/oembed?url=${encodeURIComponent(cleanUrl)}`);
+      if (res.ok) {
+        const oe = await res.json();
+        return {
+          id: 'tt-' + Date.now(),
+          url: cleanUrl,
+          platform: 'tiktok',
+          title: oe.title || 'TikTok Video',
+          uploader: oe.author_name || 'TikTok Creator',
+          duration: 'Shorts',
+          thumbnail: oe.thumbnail_url || '',
+          thumbnails: [{ url: oe.thumbnail_url || '' }],
+          formats: [
+            { id: 'best', format_id: 'best', quality: 'No Watermark HD', ext: 'mp4', kind: 'video+audio', sizeFormatted: 'Original', recommended: true },
+            { id: 'mp3', format_id: 'mp3', quality: 'Original Sound', ext: 'mp3', kind: 'audio-only', sizeFormatted: 'Audio' },
+          ],
+        };
+      }
+    } catch (_) {}
+  }
+
+  if (platform === 'reddit') {
+    try {
+      const res = await fetch(`https://www.reddit.com/oembed?url=${encodeURIComponent(cleanUrl)}`);
+      if (res.ok) {
+        const oe = await res.json();
+        return {
+          id: 'rd-' + Date.now(),
+          url: cleanUrl,
+          platform: 'reddit',
+          title: oe.title || 'Reddit Post',
+          uploader: oe.author_name || 'Reddit User',
+          duration: 'Post Video',
+          thumbnail: oe.thumbnail_url || '',
+          thumbnails: [{ url: oe.thumbnail_url || '' }],
+          formats: [
+            { id: 'best', format_id: 'best', quality: 'Merged HD (Video+Audio)', ext: 'mp4', kind: 'video+audio', sizeFormatted: 'HD', recommended: true },
+            { id: 'mp3', format_id: 'mp3', quality: 'MP3 Audio', ext: 'mp3', kind: 'audio-only', sizeFormatted: 'Audio' },
+          ],
+        };
+      }
+    } catch (_) {}
+  }
+
+  if (platform === 'dailymotion') {
+    try {
+      const res = await fetch(`https://www.dailymotion.com/services/oembed?url=${encodeURIComponent(cleanUrl)}`);
+      if (res.ok) {
+        const oe = await res.json();
+        return {
+          id: 'dm-' + Date.now(),
+          url: cleanUrl,
+          platform: 'dailymotion',
+          title: oe.title || 'Dailymotion Video',
+          uploader: oe.author_name || 'Dailymotion Creator',
+          duration: 'HD Video',
+          thumbnail: oe.thumbnail_url || '',
+          thumbnails: [{ url: oe.thumbnail_url || '' }],
+          formats: [
+            { id: 'best', format_id: 'best', quality: 'HD MP4', ext: 'mp4', kind: 'video+audio', sizeFormatted: 'HD', recommended: true },
+            { id: 'mp3', format_id: 'mp3', quality: 'MP3 Audio', ext: 'mp3', kind: 'audio-only', sizeFormatted: 'Audio' },
+          ],
+        };
+      }
+    } catch (_) {}
+  }
+
+  // General fallback using yt-dlp with browser user-agent and timeout safety
+  try {
+    const { stdout } = await execFileAsync(
+      'yt-dlp',
+      [
+        '--dump-single-json',
+        '--no-warnings',
+        '--no-check-certificates',
+        '--no-playlist',
+        '--user-agent',
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        cleanUrl,
+      ],
+      { timeout: 20000 }
+    );
+    const raw = JSON.parse(stdout);
+    return {
+      id: raw.id || 'video-' + Date.now(),
+      url: cleanUrl,
+      platform,
+      title: raw.title || 'Downloaded Video',
+      uploader: raw.uploader || 'Creator',
+      duration: raw.duration_string || 'HD',
+      thumbnail: raw.thumbnail || '',
+      thumbnails: [{ url: raw.thumbnail || '' }],
+      formats: [
+        { id: 'best', format_id: 'best', quality: 'Original High Quality', ext: 'mp4', kind: 'video+audio', sizeFormatted: 'HD', recommended: true },
+        { id: 'mp3', format_id: 'mp3', quality: 'MP3 Audio', ext: 'mp3', kind: 'audio-only', sizeFormatted: 'Audio' },
+      ],
+    };
+  } catch (ytErr) {
+    // If direct extraction blocked, return baseline formats so user can initiate stream download
+    const readablePlatform = platform.charAt(0).toUpperCase() + platform.slice(1);
+    return {
+      id: 'ext-' + Date.now(),
+      url: cleanUrl,
+      platform,
+      title: `${readablePlatform} Media`,
+      uploader: `${readablePlatform} Creator`,
+      duration: 'HD Stream',
+      thumbnail: '',
+      thumbnails: [],
+      formats: [
+        { id: 'best', format_id: 'best', quality: 'Original Quality (MP4)', ext: 'mp4', kind: 'video+audio', sizeFormatted: 'HD', recommended: true },
+        { id: 'mp3', format_id: 'mp3', quality: 'Audio Only (MP3)', ext: 'mp3', kind: 'audio-only', sizeFormatted: 'Audio' },
+      ],
+    };
+  }
 }
 
 const server = http.createServer(async (req, res) => {
@@ -185,7 +285,15 @@ const server = http.createServer(async (req, res) => {
     const uniqueId = Date.now() + '_' + Math.random().toString(36).substring(2, 7);
     const outputPath = path.join(DOWNLOAD_DIR, `${uniqueId}.${ext}`);
 
-    const args = ['--no-warnings', '--no-check-certificates', '--no-part', '--windows-filenames'];
+    const args = [
+      '--no-warnings',
+      '--no-check-certificates',
+      '--no-part',
+      '--windows-filenames',
+      '--no-playlist',
+      '--user-agent',
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    ];
     if (isAudio) {
       args.push('-x', '--audio-format', 'mp3', '--audio-quality', '0');
     } else if (fmt === '1080p') {

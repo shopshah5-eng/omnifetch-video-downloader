@@ -184,10 +184,90 @@ export default async function handler(req, res) {
       });
     }
 
-    // Unsupported or unknown platform
+    // 3. Delegate to Render worker (yt-dlp) for Twitter, Reddit, Facebook, Instagram, Dailymotion, etc.
+    const workerUrl = process.env.DOWNLOAD_WORKER_URL || process.env.API_URL;
+    if (workerUrl) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8000);
+        const workerRes = await fetch(`${workerUrl.replace(/\/$/, '')}/api/extract`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: targetUrl }),
+          signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
+
+        if (workerRes.ok) {
+          const workerData = await workerRes.json();
+          if (workerData.success && workerData.data) {
+            return res.status(200).json(workerData);
+          }
+        }
+      } catch (_) {}
+    }
+
+    // 4. Quick oEmbed Fallback for Reddit and Dailymotion
+    if (host.includes('reddit.com') || host.includes('redd.it')) {
+      try {
+        const rRes = await fetch(`https://www.reddit.com/oembed?url=${encodeURIComponent(targetUrl)}`);
+        if (rRes.ok) {
+          const rd = await rRes.json();
+          return res.status(200).json({
+            success: true,
+            data: {
+              id: 'reddit-' + Date.now(),
+              url: targetUrl,
+              platform: 'reddit',
+              title: rd.title || 'Reddit Post',
+              uploader: rd.author_name || 'Reddit User',
+              duration: 'Video Post',
+              thumbnail: rd.thumbnail_url || '',
+              thumbnails: [{ url: rd.thumbnail_url || '' }],
+              formats: [
+                { id: 'best', format_id: 'best', quality: 'HD Video', ext: 'mp4', kind: 'video+audio', sizeFormatted: 'Original', recommended: true, label: 'Download HD MP4' },
+                { id: 'audio', format_id: 'audio', quality: 'Audio Only', ext: 'mp3', kind: 'audio-only', sizeFormatted: 'Audio', label: 'Audio MP3' },
+              ],
+              hasAudio: true,
+              hasVideo: true,
+            },
+          });
+        }
+      } catch (_) {}
+    }
+
+    if (host.includes('dailymotion.com') || host.includes('dai.ly')) {
+      try {
+        const dmRes = await fetch(`https://www.dailymotion.com/services/oembed?url=${encodeURIComponent(targetUrl)}`);
+        if (dmRes.ok) {
+          const dm = await dmRes.json();
+          return res.status(200).json({
+            success: true,
+            data: {
+              id: 'dm-' + Date.now(),
+              url: targetUrl,
+              platform: 'dailymotion',
+              title: dm.title || 'Dailymotion Video',
+              uploader: dm.author_name || 'Dailymotion Creator',
+              duration: 'HD',
+              thumbnail: dm.thumbnail_url || '',
+              thumbnails: [{ url: dm.thumbnail_url || '' }],
+              formats: [
+                { id: 'best', format_id: 'best', quality: 'HD Video', ext: 'mp4', kind: 'video+audio', sizeFormatted: 'HD', recommended: true, label: 'Download HD MP4' },
+                { id: 'audio', format_id: 'audio', quality: 'Audio Only', ext: 'mp3', kind: 'audio-only', sizeFormatted: 'Audio', label: 'Audio MP3' },
+              ],
+              hasAudio: true,
+              hasVideo: true,
+            },
+          });
+        }
+      } catch (_) {}
+    }
+
+    // Generic fallback if worker is unreachable
     return res.status(400).json({
       success: false,
-      error: 'Platform not supported directly via serverless parser. Please check the URL.',
+      error: 'Could not fetch metadata for this platform. Please check that the URL is public and valid.',
     });
   } catch (err) {
     return res.status(500).json({
